@@ -1,13 +1,24 @@
-const client = require("../dbConnection");
+const client = require('../dbConnection');
 
-let collection;
-collection =client.db().collection('Cats');
-function postCat(cat, callback) {
-    collection.insertOne(cat, callback);
+const collection = client.db().collection('Cat');
+
+async function postCat(cat, callback) {
+    try {
+        const result = await collection.insertOne(cat);
+        callback(null, result)
+    } catch (error) {
+        callback(error,nil)
+    }
 }
 
-function getAllCats(callback) {
-    collection.find({}).toArray(callback);
+async function getAllCats(callback) {
+    const result = await collection.find({}).toArray(callback);
+    callback(result)
 }
 
-module.exports = {postCat,getAllctas}
+async function getAllCats(callback) {
+    const result = await collection.find({}).toArray(callback);
+    callback(result)
+}
+
+module.exports = { postCat, getAllCats }
